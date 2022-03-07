@@ -8,8 +8,13 @@ def test_loop(test_cases):
     
     for test_case in test_cases:
         try:
-            assert test_case["result"] == test_case["expected"]
-            success += 1
+            if type(test_case["expected"]) == list:
+                assert test_case["result"] in test_case["expected"]
+                success += 1
+            
+            else:
+                assert test_case["result"] == test_case["expected"]
+                success += 1
     
         except:
             fails += 1
@@ -21,7 +26,7 @@ def test_loop(test_cases):
     else:
         print('\033[92m', success," Tests passed")
         print('\033[91m', fails, " Tests failed")
-        raise Exception(test_case["error_message"])
+        raise Exception("Please check the error messages above.")
 
         
 def test_block_class(Block):
@@ -82,7 +87,7 @@ def test_block_class(Block):
         {
             "name": "conv2D_0_activation_check",
             "result": vars_test_block['conv2D_0'].activation,
-            "expected": tf.keras.activations.relu,
+            "expected": [tf.keras.activations.relu, tf.nn.relu],
             "error_message": f'Incorrect activation for Conv2D layer. Please check parameters.'
         },
                 {
@@ -185,7 +190,7 @@ def test_myvgg_class(MyVGG, Block):
         {
             "name": "fc_activation_check",
             "result": test_vgg.fc.activation,
-            "expected": tf.keras.activations.relu,
+            "expected": [tf.keras.activations.relu, tf.nn.relu],
             "error_message": "self.fc has an incorrect activation. Please check declaration."
         },
         {

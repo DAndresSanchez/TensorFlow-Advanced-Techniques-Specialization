@@ -22,7 +22,7 @@ def test_loop(test_cases):
     else:
         print('\033[92m', success," Tests passed")
         print('\033[91m', fails, " Tests failed")
-        raise Exception(test_case["error_message"])
+        raise Exception("Please check the error messages above.")
 
         
 def test_simple_quadratic(SimpleQuadratic):
